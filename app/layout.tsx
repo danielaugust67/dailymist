@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "DailyMist | Luxury Fragrance Boutique",
   description: "Begin your sensory journey with us.",
   icons: {
-    icon: "/logo.png",
+    icon: "/favico.png",
   },
 };
 
