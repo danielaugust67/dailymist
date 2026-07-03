@@ -8,10 +8,10 @@ export function getOptimizedImageUrl(src?: string, options: ImageOptions = {}) {
   if (!src) return "";
 
   const width = options.width ?? 640;
-  const quality = options.quality ?? 78;
+  const quality = options.quality ?? 85;
 
   if (src.includes("googleusercontent.com") && /=s\d+($|[?#])/.test(src)) {
-    return src.replace(/=s\d+($|[?#])/, `=w${width}$1`);
+    return src.replace(/=s\d+($|[?#])/, `=s${width}$1`);
   }
 
   try {
@@ -29,7 +29,7 @@ export function getOptimizedImageUrl(src?: string, options: ImageOptions = {}) {
   return src;
 }
 
-export function getImageSrcSet(src?: string, widths: number[] = [320, 640, 960]) {
+export function getImageSrcSet(src?: string, widths: number[] = [480, 960, 1280]) {
   if (!src) return undefined;
   return widths.map((width) => `${getOptimizedImageUrl(src, { width })} ${width}w`).join(", ");
 }

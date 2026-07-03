@@ -121,8 +121,8 @@ export function ProductResultsClient({
             <div className="aspect-[4/5] bg-surface-container-low rounded-xl overflow-hidden mb-6 relative">
               <img
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                src={getOptimizedImageUrl(imageUrl, { width: 640 })}
-                srcSet={getImageSrcSet(imageUrl, [320, 640, 960])}
+                src={getOptimizedImageUrl(imageUrl, { width: 960 })}
+                srcSet={getImageSrcSet(imageUrl, [640, 960, 1280, 1600])}
                 sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                 alt={product.name}
                 loading={index < 3 ? "eager" : "lazy"}

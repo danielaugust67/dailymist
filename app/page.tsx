@@ -130,8 +130,8 @@ export default async function HomePage() {
                 <div className="aspect-[4/5] bg-surface-container overflow-hidden rounded-xl mb-6">
                   <img
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    src={getOptimizedImageUrl((product.imageUrls && product.imageUrls[0]) || "https://placehold.co/400x500/f0eded/5e5e5c?text=DailyMist", { width: 640 })}
-                    srcSet={getImageSrcSet((product.imageUrls && product.imageUrls[0]) || "https://placehold.co/400x500/f0eded/5e5e5c?text=DailyMist", [320, 640, 960])}
+                    src={getOptimizedImageUrl((product.imageUrls && product.imageUrls[0]) || "https://placehold.co/400x500/f0eded/5e5e5c?text=DailyMist", { width: 960 })}
+                    srcSet={getImageSrcSet((product.imageUrls && product.imageUrls[0]) || "https://placehold.co/400x500/f0eded/5e5e5c?text=DailyMist", [640, 960, 1280, 1600])}
                     sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
                     alt={product.name}
                     loading={i < 2 ? "eager" : "lazy"}
@@ -207,9 +207,9 @@ export default async function HomePage() {
           </Reveal>
         </section>
 
-        {/* Best Sellers Scroll */}
-        <section style={{ paddingTop: "120px", paddingBottom: "120px" }}>
-          <Reveal className="max-w-[1440px] mx-auto mb-12" style={{ paddingLeft: "80px", paddingRight: "80px" }}>
+        {/* Best Sellers */}
+        <section className="px-5 md:px-12 lg:px-20" style={{ paddingTop: "80px", paddingBottom: "96px" }}>
+          <Reveal className="max-w-[1440px] mx-auto mb-10">
             <h3
               className="text-on-surface"
               style={{ fontFamily: "'Playfair Display', serif", fontSize: "32px", lineHeight: "1.3", fontWeight: 400 }}
@@ -217,20 +217,20 @@ export default async function HomePage() {
               The Alchemist&apos;s Selection
             </h3>
           </Reveal>
-          <Reveal delay={200} className="flex overflow-x-auto gap-8 pb-10 hide-scrollbar snap-x" style={{ paddingLeft: "80px" }}>
+          <Reveal delay={200} className="max-w-[1440px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {[
               { label: "Most Loved", name: "Arctic Iris", slug: "arctic-iris", price: 230, img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBzR_0B145zCTiIF9vk35JbfY8tQoGTDpp-tcm-BRDSI-8RQvCEO5_Xa7CGkyODfJNOdWZj5PzZZXbNXxQmUWuFwCrvPE-iIRBawExaG9U-YfwyInjXbDcs32VixLUciaBbS8TrjC1qaSA1bx3se86DIiIbWJKQQCFMxUyhFbQxtPPORpBgPWR8DwIWUp3Ixa60x6KanLHRpjvaX5Vn3MUAi1myFgLq-JyBPAdz-xb93Prf63oEW-5WYw=s2048" },
               { label: "Editor's Pick", name: "Night Oud", slug: "night-oud", price: 275, img: "https://lh3.googleusercontent.com/aida-public/AB6AXuC_HiHkCea_QQGly1P5RpD4b3bz6r8yfgfPk1bOsqGJ1OGHYDlZxhObt4wFJ6KFsF8_dJc1c9kxZwnmPGoTPA77iNBFyJ6Z8obuBba2TFQf6Htr0nWyLh2jmVEnwvMjh_KQsqs0zdV9qc3LKwsqHlqo7MFx8D9y7c7zrU9kuQ28t-LXXB3D1xe811z9ULwHw_Rpg0qC7akkf-9V2V4s9fmxtzRdADLY-iSFPGFWo8-pdAcMuGZiD3-GBg=s2048" },
               { label: "Limited Release", name: "Nectarine Blush", slug: "nectarine-blush", price: 190, img: "https://lh3.googleusercontent.com/aida-public/AB6AXuDi2nxNwpdoO1zQQzwkymcQpsgLlWhgPc9l2i-lxV747VyOZpzX5sCfhY2wjHc4CZht8pRmFk6Tp99vUG1FJEU_3s7-lsPcLS-VqKvlFiRxvvoF2mFgzTaVrhsYfC3DBP3XG5qjWoY9EdL-JbWhWlzNV2qw2gFKUWulslUp4EdXmV63RjooQXZvzNdlMvoPuR-Mj2BMiVe6o_s-THP_wH8mw0nk9sPkX_8EfbAR4qd6DHVIOyIeJxXViw=s2048" },
               { label: "New Arrival", name: "Moss & Rain", slug: "moss-and-rain", price: 155, img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAfIatRUEZmplQM9PMfa8m1B9dgSyYt-XAKFaw1M-Ln56q4X2FI0EU9Oa0G11datGUHByyINPPPDtHudxBt4fNlSQ0DS1Wglwr5J9BRhcPQhoN-yIcwmGpuZGOR7B9vsSdFumHUlg2XJpzdYENbZOueK9tcp0Ox0ovyiY9-uk0H1gDLQ09NhTzPcFSv3G4S5oB2qH3e0C9LPiDKurHmfkakzRrX3_jeQmIyWRfW8OKRx1iow6Z96991zQ=s2048" },
             ].map((item) => (
-              <Link href={`/products/${item.slug}`} key={item.name} className="flex-none w-80 snap-start group cursor-pointer">
-                <div className="aspect-[3/4] bg-surface-container rounded-xl overflow-hidden mb-6 luxury-shadow">
+              <Link href={`/products/${item.slug}`} key={item.name} className="group cursor-pointer min-w-0">
+                <div className="aspect-[4/5] bg-surface-container rounded-lg overflow-hidden mb-5 luxury-shadow">
                   <img
                     className="w-full h-full object-cover transition-transform group-hover:scale-110 duration-700"
-                    src={getOptimizedImageUrl(item.img, { width: 640 })}
-                    srcSet={getImageSrcSet(item.img, [320, 640, 960])}
-                    sizes="320px"
+                    src={getOptimizedImageUrl(item.img, { width: 960 })}
+                    srcSet={getImageSrcSet(item.img, [640, 960, 1280, 1600])}
+                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
                     alt={item.name}
                     loading="lazy"
                     decoding="async"

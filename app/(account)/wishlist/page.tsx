@@ -83,8 +83,8 @@ export default function WishlistPage() {
                   <div className="relative aspect-[4/5] bg-[#e9e2d5] rounded-lg overflow-hidden mb-4">
                     <Link href={`/products/${item.slug}`}>
                       <img
-                        src={getOptimizedImageUrl(item.imageUrl, { width: 640 })}
-                        srcSet={getImageSrcSet(item.imageUrl, [320, 640, 960])}
+                        src={getOptimizedImageUrl(item.imageUrl, { width: 960 })}
+                        srcSet={getImageSrcSet(item.imageUrl, [640, 960, 1280, 1600])}
                         sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                         alt={item.name}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
