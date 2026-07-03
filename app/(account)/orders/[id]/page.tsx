@@ -7,6 +7,7 @@ import { Order } from "@/lib/mappers/order.mapper";
 import Link from "next/link";
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
+import { getOptimizedImageUrl } from "@/lib/image-url";
 
 const playfair = "'Playfair Display', serif";
 const dmSans = "'DM Sans', sans-serif";
@@ -85,7 +86,15 @@ export default function OrderDetailPage({ params }: { params: Promise<{ id: stri
                 {order.items.map(item => (
                   <div key={`${item.productId}-${item.size}`} className="flex items-center gap-6">
                     <div className="w-20 h-24 bg-[#e9e2d5] rounded shrink-0 overflow-hidden">
-                      {item.imageUrl && <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover" />}
+                      {item.imageUrl && (
+                        <img
+                          src={getOptimizedImageUrl(item.imageUrl, { width: 180 })}
+                          alt={item.name}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      )}
                     </div>
                     <div className="flex-1" style={{ fontFamily: dmSans }}>
                       <p className="font-semibold text-lg">{item.name}</p>

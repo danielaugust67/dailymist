@@ -6,6 +6,7 @@ import { AddToCartClient } from "@/components/product/AddToCartClient";
 import { ProductReviews } from "@/components/product/ProductReviews";
 import { WishlistButton } from "@/components/product/WishlistButton";
 import Link from "next/link";
+import { getImageSrcSet, getOptimizedImageUrl } from "@/lib/image-url";
 
 const playfair = "'Playfair Display', serif";
 const dmSans = "'DM Sans', sans-serif";
@@ -48,7 +49,15 @@ export default async function ProductDetailPage({
             <div className="flex gap-4 mb-4 overflow-x-auto snap-x hide-scrollbar">
               {product.imageUrls?.map((img: string, i: number) => (
                 <div key={i} className="min-w-full aspect-[4/5] bg-surface-variant relative snap-center rounded overflow-hidden">
-                  <img src={img} alt={`${product.name} - Image ${i+1}`} className="w-full h-full object-cover" />
+                  <img
+                    src={getOptimizedImageUrl(img, { width: 1200 })}
+                    srcSet={getImageSrcSet(img, [640, 960, 1200, 1600])}
+                    sizes="(min-width: 1024px) 58vw, 100vw"
+                    alt={`${product.name} - Image ${i+1}`}
+                    className="w-full h-full object-cover"
+                    loading={i === 0 ? "eager" : "lazy"}
+                    decoding="async"
+                  />
                   {i === 0 && (
                     <div className="absolute top-6 right-6">
                       <WishlistButton 
@@ -75,7 +84,13 @@ export default async function ProductDetailPage({
                     className="aspect-square rounded overflow-hidden opacity-60 hover:opacity-100 transition-opacity"
                     style={{ background: "#e9e2d5", outline: i === 0 ? "1px solid #5f5e5b" : "none" }}
                   >
-                    <img className="w-full h-full object-cover" src={url} alt={`${product.name} ${i + 1}`} />
+                    <img
+                      className="w-full h-full object-cover"
+                      src={getOptimizedImageUrl(url, { width: 180, height: 180 })}
+                      alt={`${product.name} ${i + 1}`}
+                      loading="lazy"
+                      decoding="async"
+                    />
                   </button>
                 ))}
               </div>

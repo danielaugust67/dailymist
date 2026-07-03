@@ -3,6 +3,7 @@ import { Footer } from "@/components/layout/Footer";
 import Link from "next/link";
 import { getProducts } from "@/lib/repositories/product.repository";
 import { Reveal } from "@/components/ui/Reveal";
+import { getImageSrcSet, getOptimizedImageUrl } from "@/lib/image-url";
 
 export default async function HomePage() {
   let featuredProducts: any[] = [];
@@ -47,7 +48,7 @@ export default async function HomePage() {
             <div
               className="w-full h-full bg-cover bg-center animate-slow-pan"
               style={{
-                backgroundImage: "url('https://images.unsplash.com/photo-1615634260167-c8cd6f5a0410?q=80&w=2800&auto=format&fit=crop')", // High quality perfume image
+                backgroundImage: "url('/images/home-hero-perfume.jpg')",
               }}
             />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(0,0,0,0.6), transparent)" }} />
@@ -129,8 +130,12 @@ export default async function HomePage() {
                 <div className="aspect-[4/5] bg-surface-container overflow-hidden rounded-xl mb-6">
                   <img
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    src={(product.imageUrls && product.imageUrls[0]) || "https://placehold.co/400x500/f0eded/5e5e5c?text=DailyMist"}
+                    src={getOptimizedImageUrl((product.imageUrls && product.imageUrls[0]) || "https://placehold.co/400x500/f0eded/5e5e5c?text=DailyMist", { width: 640 })}
+                    srcSet={getImageSrcSet((product.imageUrls && product.imageUrls[0]) || "https://placehold.co/400x500/f0eded/5e5e5c?text=DailyMist", [320, 640, 960])}
+                    sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
                     alt={product.name}
+                    loading={i < 2 ? "eager" : "lazy"}
+                    decoding="async"
                   />
                 </div>
                 <h4
@@ -174,8 +179,12 @@ export default async function HomePage() {
                       <div className="w-full h-full rounded-full overflow-hidden">
                         <img
                           className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-                          src={cat.img}
+                          src={getOptimizedImageUrl(cat.img, { width: 420 })}
+                          srcSet={getImageSrcSet(cat.img, [240, 420, 640])}
+                          sizes="256px"
                           alt={cat.label}
+                          loading="lazy"
+                          decoding="async"
                         />
                       </div>
                     </div>
@@ -219,8 +228,12 @@ export default async function HomePage() {
                 <div className="aspect-[3/4] bg-surface-container rounded-xl overflow-hidden mb-6 luxury-shadow">
                   <img
                     className="w-full h-full object-cover transition-transform group-hover:scale-110 duration-700"
-                    src={item.img}
+                    src={getOptimizedImageUrl(item.img, { width: 640 })}
+                    srcSet={getImageSrcSet(item.img, [320, 640, 960])}
+                    sizes="320px"
                     alt={item.name}
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <span

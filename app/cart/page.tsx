@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { getOptimizedImageUrl } from "@/lib/image-url";
 
 const playfair = "'Playfair Display', serif";
 const dmSans = "'DM Sans', sans-serif";
@@ -71,7 +72,13 @@ export default function CartPage() {
               {items.map((item) => (
                 <div key={`${item.productId}-${item.size}`} className="flex items-center gap-6 py-6 border-b border-outline-variant/20">
                   <Link href={`/products/${item.slug}`} className="w-24 h-32 shrink-0 bg-[#e9e2d5] rounded-md overflow-hidden block">
-                    <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover" />
+                    <img
+                      src={getOptimizedImageUrl(item.imageUrl, { width: 180 })}
+                      alt={item.name}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                    />
                   </Link>
                   
                   <div className="flex-1">

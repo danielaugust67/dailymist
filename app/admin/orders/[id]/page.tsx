@@ -2,6 +2,7 @@
 
 import { useEffect, useState, use } from "react";
 import Link from "next/link";
+import { getOptimizedImageUrl } from "@/lib/image-url";
 import { Order } from "@/lib/mappers/order.mapper";
 
 const playfair = "'Playfair Display', serif";
@@ -122,7 +123,13 @@ export default function AdminOrderDetailPage({ params }: { params: Promise<{ id:
           {order.items.map((item, idx) => (
             <div key={idx} className="flex justify-between items-center border-b border-outline-variant/30 pb-4">
               <div className="flex gap-4 items-center">
-                <img src={item.imageUrl} alt={item.name} className="w-12 h-16 object-cover bg-surface-variant rounded" />
+                <img
+                  src={getOptimizedImageUrl(item.imageUrl, { width: 120 })}
+                  alt={item.name}
+                  className="w-12 h-16 object-cover bg-surface-variant rounded"
+                  loading="lazy"
+                  decoding="async"
+                />
                 <div>
                   <p className="font-medium">{item.name}</p>
                   <p className="text-sm text-on-surface-variant">Size: {item.size}</p>

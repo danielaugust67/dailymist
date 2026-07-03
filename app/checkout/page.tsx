@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Footer } from "@/components/layout/Footer";
 import { Address } from "@/lib/mappers/address.mapper";
+import { getOptimizedImageUrl } from "@/lib/image-url";
 import { useCartStore } from "@/store/cart-store";
 
 const playfair = "'Playfair Display', serif";
@@ -331,7 +332,15 @@ export default function CheckoutPage() {
                   {items.map((item) => (
                     <div key={`${item.productId}-${item.size}`} className="flex gap-4 items-center">
                       <div className="w-16 h-16 bg-surface-container-high rounded overflow-hidden flex-shrink-0">
-                        {item.imageUrl ? <img className="w-full h-full object-cover" src={item.imageUrl} alt={item.name} /> : null}
+                        {item.imageUrl ? (
+                          <img
+                            className="w-full h-full object-cover"
+                            src={getOptimizedImageUrl(item.imageUrl, { width: 120, height: 120 })}
+                            alt={item.name}
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        ) : null}
                       </div>
                       <div className="flex-grow min-w-0">
                         <p className="text-primary uppercase truncate" style={{ fontFamily: dmSans, fontSize: "14px", letterSpacing: "0.05em", fontWeight: 600 }}>{item.name}</p>

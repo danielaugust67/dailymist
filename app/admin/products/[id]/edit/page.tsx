@@ -3,6 +3,7 @@
 import { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { getImageSrcSet, getOptimizedImageUrl } from "@/lib/image-url";
 import { Category, Product } from "@/lib/mappers/product.mapper";
 
 export default function EditProductPage({ params }: { params: Promise<{ id: string }> }) {
@@ -256,7 +257,15 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
               {formData.imageUrls.map((url) => (
                 <div key={url} className="relative group rounded-lg overflow-hidden border border-outline-variant bg-surface-container-low">
                   <div className="aspect-[4/5]">
-                    <img src={url} alt="Product image" className="w-full h-full object-cover" />
+                    <img
+                      src={getOptimizedImageUrl(url, { width: 420 })}
+                      srcSet={getImageSrcSet(url, [240, 420, 640])}
+                      sizes="(min-width: 768px) 33vw, 50vw"
+                      alt="Product image"
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                    />
                   </div>
                   <button
                     type="button"

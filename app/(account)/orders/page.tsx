@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
+import { getOptimizedImageUrl } from "@/lib/image-url";
 import { Order } from "@/lib/mappers/order.mapper";
 
 const playfair = "'Playfair Display', serif";
@@ -229,7 +230,13 @@ export default function OrdersPage() {
                     <div className="flex items-center gap-6 min-w-0">
                       <div className="w-20 h-20 bg-secondary-container rounded-lg overflow-hidden flex-shrink-0 flex items-center justify-center">
                         {firstItem?.imageUrl ? (
-                          <img className="w-full h-full object-cover" src={firstItem.imageUrl} alt={firstItem.name} />
+                          <img
+                            className="w-full h-full object-cover"
+                            src={getOptimizedImageUrl(firstItem.imageUrl, { width: 160, height: 160 })}
+                            alt={firstItem.name}
+                            loading="lazy"
+                            decoding="async"
+                          />
                         ) : (
                           <span className="material-symbols-outlined text-3xl text-outline-variant">inventory_2</span>
                         )}

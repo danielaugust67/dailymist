@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Product } from "@/lib/mappers/product.mapper";
 import { useAutoFetch } from "@/hooks/useAutoFetch";
+import { getImageSrcSet, getOptimizedImageUrl } from "@/lib/image-url";
 
 const playfair = "'Playfair Display', serif";
 const dmSans = "'DM Sans', sans-serif";
@@ -112,13 +113,20 @@ export function ProductResultsClient({
       )}
 
       <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-16 ${isLoading ? "opacity-70" : ""}`}>
-        {products.map((product) => (
+        {products.map((product, index) => {
+          const imageUrl = product.imageUrls?.[0] || "https://placehold.co/400x500/f6f3f2/5e5e5c?text=DailyMist";
+
+          return (
           <Link href={`/products/${product.slug}`} key={product.id} className="group product-card relative">
             <div className="aspect-[4/5] bg-surface-container-low rounded-xl overflow-hidden mb-6 relative">
               <img
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                src={product.imageUrls?.[0] || "https://placehold.co/400x500/f6f3f2/5e5e5c?text=DailyMist"}
+                src={getOptimizedImageUrl(imageUrl, { width: 640 })}
+                srcSet={getImageSrcSet(imageUrl, [320, 640, 960])}
+                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                 alt={product.name}
+                loading={index < 3 ? "eager" : "lazy"}
+                decoding="async"
               />
               <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end p-6 translate-y-4 group-hover:translate-y-0">
                 <div
@@ -139,7 +147,8 @@ export function ProductResultsClient({
               ${product.price}
             </p>
           </Link>
-        ))}
+          );
+        })}
       </div>
 
       {products.length === 0 && (

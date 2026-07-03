@@ -7,6 +7,7 @@ import { useWishlistStore, type WishlistItem } from "@/store/wishlist-store";
 import Link from "next/link";
 import { useCartStore } from "@/store/cart-store";
 import { CartToast } from "@/components/ui/CartToast";
+import { getImageSrcSet, getOptimizedImageUrl } from "@/lib/image-url";
 
 const playfair = "'Playfair Display', serif";
 const dmSans = "'DM Sans', sans-serif";
@@ -81,7 +82,15 @@ export default function WishlistPage() {
                 <div key={item.productId} className="bg-white rounded-xl border border-outline-variant/30 p-4 shadow-sm group">
                   <div className="relative aspect-[4/5] bg-[#e9e2d5] rounded-lg overflow-hidden mb-4">
                     <Link href={`/products/${item.slug}`}>
-                      <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <img
+                        src={getOptimizedImageUrl(item.imageUrl, { width: 640 })}
+                        srcSet={getImageSrcSet(item.imageUrl, [320, 640, 960])}
+                        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                        alt={item.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                        decoding="async"
+                      />
                     </Link>
                     <button 
                       onClick={() => removeItem(item.productId)}

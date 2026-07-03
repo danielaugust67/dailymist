@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Product } from "@/lib/mappers/product.mapper";
+import { getOptimizedImageUrl } from "@/lib/image-url";
 
 export default function AdminProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -88,7 +89,13 @@ export default function AdminProductsPage() {
                     <div className="flex items-center gap-4">
                       <div className="w-12 h-12 bg-surface-variant rounded-md overflow-hidden shrink-0">
                         {product.imageUrls?.[0] ? (
-                          <img src={product.imageUrls[0]} alt={product.name} className="w-full h-full object-cover" />
+                          <img
+                            src={getOptimizedImageUrl(product.imageUrls[0], { width: 96, height: 96 })}
+                            alt={product.name}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                            decoding="async"
+                          />
                         ) : (
                           <span className="material-symbols-outlined flex items-center justify-center h-full text-on-surface-variant">image</span>
                         )}
