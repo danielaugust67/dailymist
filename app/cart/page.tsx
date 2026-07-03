@@ -4,6 +4,7 @@ import { useCartStore } from "@/store/cart-store";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getOptimizedImageUrl } from "@/lib/image-url";
 
@@ -11,7 +12,9 @@ const playfair = "'Playfair Display', serif";
 const dmSans = "'DM Sans', sans-serif";
 
 export default function CartPage() {
+  const router = useRouter();
   const [mounted, setMounted] = useState(false);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(false);
   
   const items = useCartStore((state) => state.items);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
@@ -21,6 +24,23 @@ export default function CartPage() {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handleCheckout = async () => {
+    setIsCheckingAuth(true);
+    try {
+      const res = await fetch("/api/auth/me", { cache: "no-store" });
+      if (res.ok) {
+        router.push("/checkout");
+        return;
+      }
+
+      router.push(`/login?redirect=${encodeURIComponent("/checkout")}`);
+    } catch {
+      router.push(`/login?redirect=${encodeURIComponent("/checkout")}`);
+    } finally {
+      setIsCheckingAuth(false);
+    }
+  };
 
   if (!mounted) {
     return (
@@ -147,13 +167,15 @@ export default function CartPage() {
                   <span>${totalPrice.toFixed(2)}</span>
                 </div>
 
-                <Link
-                  href="/checkout"
-                  className="block w-full bg-[#1b1c1c] text-white py-4 rounded-lg uppercase tracking-widest hover:bg-[#343534] transition-colors text-center"
+                <button
+                  type="button"
+                  onClick={handleCheckout}
+                  disabled={isCheckingAuth}
+                  className="block w-full bg-[#1b1c1c] text-white py-4 rounded-lg uppercase tracking-widest hover:bg-[#343534] transition-colors text-center disabled:opacity-60"
                   style={{ fontFamily: dmSans, fontSize: "14px", fontWeight: 600 }}
                 >
-                  Checkout
-                </Link>
+                  {isCheckingAuth ? "Checking..." : "Checkout"}
+                </button>
                 
                 <p className="text-center text-on-surface-variant mt-4" style={{ fontFamily: dmSans, fontSize: "12px" }}>
                   Taxes and shipping calculated at checkout

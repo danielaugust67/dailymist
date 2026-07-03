@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useCartStore } from "@/store/cart-store";
 import { Product } from "@/lib/mappers/product.mapper";
 import { CartToast } from "@/components/ui/CartToast";
@@ -12,9 +13,11 @@ interface Props {
 }
 
 export function AddToCartClient({ product }: Props) {
+  const router = useRouter();
   const [selectedSize, setSelectedSize] = useState("50ml");
   const [quantity, setQuantity] = useState(1);
   const [isToastVisible, setIsToastVisible] = useState(false);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(false);
   const addItem = useCartStore((state) => state.addItem);
 
   useEffect(() => {
@@ -27,7 +30,27 @@ export function AddToCartClient({ product }: Props) {
     return () => window.clearTimeout(timeout);
   }, [isToastVisible]);
 
-  const handleAddToCart = () => {
+  const redirectToLogin = () => {
+    router.push(`/login?redirect=${encodeURIComponent(`/products/${product.slug}`)}`);
+  };
+
+  const ensureLoggedIn = async () => {
+    setIsCheckingAuth(true);
+    try {
+      const res = await fetch("/api/auth/me", { cache: "no-store" });
+      if (res.ok) return true;
+
+      redirectToLogin();
+      return false;
+    } catch {
+      redirectToLogin();
+      return false;
+    } finally {
+      setIsCheckingAuth(false);
+    }
+  };
+
+  const addSelectedItem = () => {
     addItem({
       productId: product.id,
       slug: product.slug,
@@ -37,7 +60,22 @@ export function AddToCartClient({ product }: Props) {
       quantity,
       size: selectedSize,
     });
+  };
+
+  const handleAddToCart = async () => {
+    const isLoggedIn = await ensureLoggedIn();
+    if (!isLoggedIn) return;
+
+    addSelectedItem();
     setIsToastVisible(true);
+  };
+
+  const handleBuyNow = async () => {
+    const isLoggedIn = await ensureLoggedIn();
+    if (!isLoggedIn) return;
+
+    addSelectedItem();
+    router.push("/checkout");
   };
 
   return (
@@ -106,13 +144,18 @@ export function AddToCartClient({ product }: Props) {
       {/* Actions */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
         <button
+          type="button"
           onClick={handleAddToCart}
+          disabled={isCheckingAuth}
           className="text-on-primary rounded-lg uppercase tracking-widest hover:opacity-90 transition-all active:scale-[0.98] shadow-md"
           style={{ background: "#5f5e5b", padding: "16px", fontFamily: dmSans, fontSize: "14px", letterSpacing: "0.05em", fontWeight: 500 }}
         >
-          Add to Cart
+          {isCheckingAuth ? "Checking..." : "Add to Cart"}
         </button>
         <button
+          type="button"
+          onClick={handleBuyNow}
+          disabled={isCheckingAuth}
           className="text-primary rounded-lg uppercase tracking-widest hover:bg-primary/5 transition-all active:scale-[0.98]"
           style={{ border: "1px solid #5f5e5b", padding: "16px", fontFamily: dmSans, fontSize: "14px", letterSpacing: "0.05em", fontWeight: 500 }}
         >

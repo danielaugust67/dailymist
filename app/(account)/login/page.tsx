@@ -10,6 +10,17 @@ import Link from "next/link";
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
+function getSafeRedirect() {
+  if (typeof window === "undefined") return "/";
+
+  const redirect = new URLSearchParams(window.location.search).get("redirect");
+  if (!redirect || !redirect.startsWith("/") || redirect.startsWith("//")) {
+    return "/";
+  }
+
+  return redirect;
+}
+
 export default function LoginPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
@@ -34,7 +45,7 @@ export default function LoginPage() {
       if (!res.ok) {
         setError(body.message || "Something went wrong");
       } else {
-        router.push("/");
+        router.push(getSafeRedirect());
         router.refresh();
       }
     } catch (err: any) {

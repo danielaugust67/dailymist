@@ -93,9 +93,21 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     setMounted(true);
-    fetch("/api/addresses")
-      .then((res) => (res.ok ? res.json() : null))
-      .then((json) => {
+
+    let isCancelled = false;
+
+    async function loadCheckoutData() {
+      try {
+        const authRes = await fetch("/api/auth/me", { cache: "no-store" });
+        if (!authRes.ok) {
+          router.replace(`/login?redirect=${encodeURIComponent("/checkout")}`);
+          return;
+        }
+
+        const addressRes = await fetch("/api/addresses");
+        const json = addressRes.ok ? await addressRes.json() : null;
+        if (isCancelled) return;
+
         const savedAddresses: Address[] = json?.data || [];
         setAddresses(savedAddresses);
         const defaultAddress = savedAddresses.find((address) => address.isDefault);
@@ -106,11 +118,17 @@ export default function CheckoutPage() {
         } else {
           setAddressMode("new");
         }
-      })
-      .catch(() => {
-        setAddressMode("new");
-      });
-  }, []);
+      } catch {
+        if (!isCancelled) setAddressMode("new");
+      }
+    }
+
+    void loadCheckoutData();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [router]);
 
   const selectedAddress = useMemo(
     () => addresses.find((address) => address.id === selectedAddressId),
