@@ -85,13 +85,12 @@ export function Navbar() {
 
           {/* Center Logo */}
           <div className="flex-none">
-            <Link href="/">
-              <span
-                className="font-headline-md text-headline-md font-normal tracking-tighter text-on-surface"
-                style={{ fontFamily: "'Playfair Display', serif", fontSize: "24px", lineHeight: "1.4" }}
-              >
-                DailyMist
-              </span>
+            <Link href="/" className="flex items-center justify-center">
+              <img 
+                src="/logo.png" 
+                alt="DailyMist" 
+                className="h-10 w-auto object-contain"
+              />
             </Link>
           </div>
 

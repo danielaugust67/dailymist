@@ -4,6 +4,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "DailyMist | Luxury Fragrance Boutique",
   description: "Begin your sensory journey with us.",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({
