@@ -1,26 +1,302 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+/* ============================================================
+   THEME TOKENS — Matching Stitch Design System (Homepage)
+   ============================================================ */
+@theme {
+  /* Colors from stitch-homepage.html */
+  --color-primary:                  #5e5e5c;
+  --color-on-primary:               #ffffff;
+  --color-primary-container:        #fdfbf7;
+  --color-on-primary-container:     #747471;
+  --color-primary-fixed:            #e4e2de;
+  --color-primary-fixed-dim:        #c8c6c3;
+  --color-on-primary-fixed:         #1b1c1a;
+  --color-on-primary-fixed-variant: #474744;
+
+  --color-secondary:                #645d53;
+  --color-on-secondary:             #ffffff;
+  --color-secondary-container:      #e8ded1;
+  --color-on-secondary-container:   #686257;
+  --color-secondary-fixed:          #ebe1d4;
+  --color-secondary-fixed-dim:      #cfc5b9;
+  --color-on-secondary-fixed:       #1f1b13;
+  --color-on-secondary-fixed-variant: #4c463c;
+
+  --color-tertiary:                 #735c00;
+  --color-on-tertiary:              #ffffff;
+  --color-tertiary-container:       #fffaf7;
+  --color-on-tertiary-container:    #8d7000;
+  --color-tertiary-fixed:           #ffe088;
+  --color-tertiary-fixed-dim:       #e9c349;
+  --color-on-tertiary-fixed:        #241a00;
+  --color-on-tertiary-fixed-variant: #574500;
+
+  --color-error:                    #ba1a1a;
+  --color-on-error:                 #ffffff;
+  --color-error-container:          #ffdad6;
+  --color-on-error-container:       #93000a;
+
+  --color-background:               #fcf9f8;
+  --color-on-background:            #1b1c1c;
+  --color-surface:                  #fcf9f8;
+  --color-on-surface:               #1b1c1c;
+  --color-surface-variant:          #e4e2e1;
+  --color-on-surface-variant:       #454742;
+  --color-surface-dim:              #dcd9d9;
+  --color-surface-bright:           #fcf9f8;
+  --color-surface-tint:             #5e5e5c;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low:    #f6f3f2;
+  --color-surface-container:        #f0eded;
+  --color-surface-container-high:   #eae7e7;
+  --color-surface-container-highest: #e4e2e1;
+
+  --color-inverse-surface:          #303030;
+  --color-inverse-on-surface:       #f3f0f0;
+  --color-inverse-primary:          #c8c6c3;
+
+  --color-outline:                  #767872;
+  --color-outline-variant:          #c6c7c0;
+
+  --color-accent-soft-blush:        #f5ece9;
+
+  /* Spacing */
+  --spacing-unit:           8px;
+  --spacing-gutter:         24px;
+  --spacing-margin-mobile:  20px;
+  --spacing-margin-desktop: 80px;
+  --spacing-container-max:  1440px;
+  --spacing-section-gap:    120px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #fcf9f8;
+  color: #1b1c1c;
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   MATERIAL SYMBOLS
+   ============================================================ */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+  font-size: 20px;
+  line-height: 1;
+  vertical-align: middle;
+  font-style: normal;
+  display: inline-block;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+}
+
+/* ============================================================
+   TYPOGRAPHY UTILITIES
+   Mirrors exactly how Stitch Tailwind config defines them:
+   fontFamily + fontSize classes
+   ============================================================ */
+
+/* --- font-family utilities --- */
+.font-display-lg,
+.font-display-lg-mobile,
+.font-headline-lg,
+.font-headline-md,
+.font-headline-sm {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-body-lg,
+.font-body-md,
+.font-label-sm,
+.font-label-md,
+.font-label-caps {
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* --- font-size + line-height utilities --- */
+.text-display-lg {
+  font-size: 64px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+
+.text-display-lg-mobile {
+  font-size: 40px;
+  line-height: 1.2;
+  font-weight: 400;
+}
+
+.text-headline-lg {
+  font-size: 32px;
+  line-height: 1.3;
+  font-weight: 400;
+}
+
+.text-headline-md {
+  font-size: 24px;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+.text-headline-sm {
+  font-size: 24px;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.text-body-lg {
+  font-size: 18px;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.text-body-md {
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.text-label-sm {
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+
+.text-label-md {
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+.text-label-caps {
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+/* ============================================================
+   CUSTOM UTILITIES
+   ============================================================ */
+.luxury-shadow {
+  box-shadow: 0 40px 100px -20px rgba(74, 62, 62, 0.08);
+}
+
+.glass-effect {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(252, 249, 248, 0.8);
+}
+
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slow-pan {
+  0%   { transform: scale(1.05) translate(0, 0); }
+  100% { transform: scale(1.12) translate(-1.5%, -1%); }
+}
+
+.animate-fade-up {
+  animation: fade-up 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-fade-up-delay {
+  opacity: 0;
+  animation: fade-up 1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+}
+
+.animate-fade-up-delay-2 {
+  opacity: 0;
+  animation: fade-up 1s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
+}
+
+.animate-fade-up-delay-3 {
+  opacity: 0;
+  animation: fade-up 1s cubic-bezier(0.22, 1, 0.36, 1) 0.6s forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease forwards;
+}
+
+.animate-slow-pan {
+  animation: slow-pan 16s alternate ease-in-out infinite;
+}
+
+/* ============================================================
+   ACCORDION
+   ============================================================ */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease-out;
+}
+
+.accordion-active .accordion-content {
+  max-height: 500px;
+}
+
+.accordion-active .rotate-icon {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
+}
+
+/* ============================================================
+   FLOATING LABEL
+   ============================================================ */
+.floating-label-group {
+  position: relative;
+}
+
+.floating-label-group input:focus ~ label,
+.floating-label-group input:not(:placeholder-shown) ~ label {
+  top: -10px;
+  left: 12px;
+  font-size: 10px;
+  background-color: white;
+  padding: 0 4px;
+  color: #5e5e5c;
+}
+
+.floating-label-group label {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  transition: all 0.2s ease;
+  pointer-events: none;
+  color: #767872;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  font-weight: 600;
 }
