@@ -2,10 +2,9 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="w-full bg-surface-container-low" style={{ paddingTop: "120px", paddingBottom: "32px" }}>
+    <footer className="w-full bg-surface-container-low py-16 md:pt-32 md:pb-8">
       <div
-        className="grid grid-cols-1 md:grid-cols-4 max-w-[1440px] mx-auto"
-        style={{ gap: "24px", paddingLeft: "80px", paddingRight: "80px" }}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 max-w-[1440px] mx-auto gap-10 lg:gap-6 px-4 md:px-10 lg:px-20"
       >
         <div className="col-span-1">
           <h2
@@ -96,8 +95,7 @@ export function Footer() {
       </div>
 
       <div
-        className="max-w-[1440px] mx-auto mt-20 pt-8 border-t border-outline-variant flex flex-col md:flex-row justify-between items-center gap-4"
-        style={{ paddingLeft: "80px", paddingRight: "80px" }}
+        className="max-w-[1440px] mx-auto mt-16 md:mt-20 pt-8 border-t border-outline-variant flex flex-col md:flex-row justify-between items-center gap-4 px-4 md:px-10 lg:px-20"
       >
         <span className="text-on-surface-variant" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "16px" }}>
           © 2024 DailyMist. All rights reserved.

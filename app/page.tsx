@@ -54,8 +54,7 @@ export default async function HomePage() {
             <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(0,0,0,0.6), transparent)" }} />
           </div>
           <div
-            className="relative z-10 w-full max-w-[1440px] mx-auto"
-            style={{ paddingLeft: "80px", paddingRight: "80px" }}
+            className="relative z-10 w-full max-w-[1440px] mx-auto px-4 md:px-10 lg:px-20"
           >
             <div className="max-w-2xl animate-fade-up">
               <span
@@ -65,8 +64,8 @@ export default async function HomePage() {
                 Collection I: The Dawn
               </span>
               <h2
-                className="font-display-lg text-white mb-8"
-                style={{ fontFamily: "'Playfair Display', serif", fontSize: "64px", lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: 400 }}
+                className="font-display-lg text-white mb-8 text-4xl md:text-5xl lg:text-6xl"
+                style={{ fontFamily: "'Playfair Display', serif", lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: 400 }}
               >
                 Scenting your moments
               </h2>
@@ -97,14 +96,13 @@ export default async function HomePage() {
 
         {/* Featured Products */}
         <section
-          className="max-w-[1440px] mx-auto"
-          style={{ paddingTop: "120px", paddingBottom: "120px", paddingLeft: "80px", paddingRight: "80px" }}
+          className="max-w-[1440px] mx-auto py-16 md:py-32 px-4 md:px-10 lg:px-20"
         >
           <Reveal className="flex justify-between items-end mb-16">
             <div>
               <h3
-                className="text-on-surface mb-2"
-                style={{ fontFamily: "'Playfair Display', serif", fontSize: "32px", lineHeight: "1.3", fontWeight: 400 }}
+                className="text-on-surface mb-2 text-2xl md:text-3xl"
+                style={{ fontFamily: "'Playfair Display', serif", lineHeight: "1.3", fontWeight: 400 }}
               >
                 Signature Essences
               </h3>
@@ -139,8 +137,8 @@ export default async function HomePage() {
                   />
                 </div>
                 <h4
-                  className="text-on-surface group-hover:text-primary transition-colors"
-                  style={{ fontFamily: "'Playfair Display', serif", fontSize: "24px", lineHeight: "1.4", fontWeight: 400 }}
+                  className="text-on-surface group-hover:text-primary transition-colors text-xl md:text-2xl"
+                  style={{ fontFamily: "'Playfair Display', serif", lineHeight: "1.4", fontWeight: 400 }}
                 >
                   {product.name}
                 </h4>
@@ -159,11 +157,11 @@ export default async function HomePage() {
         </section>
 
         {/* Shop by Category */}
-        <section className="bg-surface-container-low" style={{ paddingTop: "120px", paddingBottom: "120px" }}>
-          <Reveal className="max-w-[1440px] mx-auto text-center" style={{ paddingLeft: "80px", paddingRight: "80px" }}>
+        <section className="bg-surface-container-low py-16 md:py-32">
+          <Reveal className="max-w-[1440px] mx-auto text-center px-4 md:px-10 lg:px-20">
             <h3
-              className="text-on-surface mb-16 italic"
-              style={{ fontFamily: "'Playfair Display', serif", fontSize: "32px", lineHeight: "1.3", fontWeight: 400 }}
+              className="text-on-surface mb-10 md:mb-16 italic text-2xl md:text-3xl"
+              style={{ fontFamily: "'Playfair Display', serif", lineHeight: "1.3", fontWeight: 400 }}
             >
               Curated for Every Identity
             </h3>
@@ -189,8 +187,8 @@ export default async function HomePage() {
                       </div>
                     </div>
                     <h5
-                      className="text-on-surface mb-2"
-                      style={{ fontFamily: "'Playfair Display', serif", fontSize: "24px", lineHeight: "1.4", fontWeight: 400 }}
+                      className="text-on-surface mb-2 text-xl md:text-2xl"
+                      style={{ fontFamily: "'Playfair Display', serif", lineHeight: "1.4", fontWeight: 400 }}
                     >
                       {cat.label}
                     </h5>
@@ -208,11 +206,11 @@ export default async function HomePage() {
         </section>
 
         {/* Best Sellers */}
-        <section className="px-5 md:px-12 lg:px-20" style={{ paddingTop: "80px", paddingBottom: "96px" }}>
+        <section className="py-16 md:py-24 px-4 md:px-10 lg:px-20">
           <Reveal className="max-w-[1440px] mx-auto mb-10">
             <h3
-              className="text-on-surface"
-              style={{ fontFamily: "'Playfair Display', serif", fontSize: "32px", lineHeight: "1.3", fontWeight: 400 }}
+              className="text-on-surface text-2xl md:text-3xl"
+              style={{ fontFamily: "'Playfair Display', serif", lineHeight: "1.3", fontWeight: 400 }}
             >
               The Alchemist&apos;s Selection
             </h3>
@@ -243,8 +241,8 @@ export default async function HomePage() {
                   {item.label}
                 </span>
                 <h4
-                  className="text-on-surface group-hover:text-primary transition-colors"
-                  style={{ fontFamily: "'Playfair Display', serif", fontSize: "24px", lineHeight: "1.4", fontWeight: 400 }}
+                  className="text-on-surface group-hover:text-primary transition-colors text-xl md:text-2xl"
+                  style={{ fontFamily: "'Playfair Display', serif", lineHeight: "1.4", fontWeight: 400 }}
                 >
                   {item.name}
                 </h4>
@@ -257,10 +255,10 @@ export default async function HomePage() {
         </section>
 
         {/* Newsletter */}
-        <section style={{ paddingTop: "120px", paddingBottom: "120px", paddingLeft: "80px", paddingRight: "80px" }}>
+        <section className="py-16 md:py-32 px-4 md:px-10 lg:px-20">
           <Reveal
-            className="max-w-4xl mx-auto rounded-xl text-center relative overflow-hidden"
-            style={{ background: "#f5ece9", paddingTop: "80px", paddingBottom: "80px", paddingLeft: "32px", paddingRight: "32px" }}
+            className="max-w-4xl mx-auto rounded-xl text-center relative overflow-hidden py-10 md:py-20 px-6 md:px-10"
+            style={{ background: "#f5ece9" }}
           >
             <div className="absolute top-0 left-0 w-32 h-32 blur-3xl -translate-x-1/2 -translate-y-1/2" style={{ background: "rgba(252,249,248,0.5)" }} />
             <div className="absolute bottom-0 right-0 w-48 h-48 blur-3xl translate-x-1/3 translate-y-1/3" style={{ background: "rgba(94,94,92,0.1)" }} />
@@ -272,8 +270,8 @@ export default async function HomePage() {
                 Join the Circle
               </span>
               <h3
-                className="text-on-surface mb-8"
-                style={{ fontFamily: "'Playfair Display', serif", fontSize: "64px", lineHeight: "1.1", fontWeight: 400 }}
+                className="text-on-surface mb-8 text-3xl md:text-5xl lg:text-6xl"
+                style={{ fontFamily: "'Playfair Display', serif", lineHeight: "1.1", fontWeight: 400 }}
               >
                 Receive scent notes <br />& exclusive releases
               </h3>

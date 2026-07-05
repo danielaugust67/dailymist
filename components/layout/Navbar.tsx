@@ -48,11 +48,14 @@ export function Navbar() {
         style={{ backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)" }}
       >
         <div
-          className="flex justify-between items-center py-6 max-w-[1440px] mx-auto"
-          style={{ paddingLeft: "80px", paddingRight: "80px" }}
+          className="flex justify-between items-center py-4 md:py-6 px-4 md:px-10 lg:px-20 max-w-[1440px] mx-auto"
         >
+          {/* Mobile Menu Button */}
+          <div className="flex-1 flex md:hidden">
+            <button className="material-symbols-outlined text-on-surface" aria-label="Menu">menu</button>
+          </div>
           {/* Left Nav Links */}
-          <div className="flex-1 flex gap-8">
+          <div className="flex-1 hidden md:flex gap-4 lg:gap-8">
             <Link
               href="/products"
               className="relative z-50 cursor-pointer font-body-md text-body-md tracking-wide text-primary border-b border-primary pb-1 transition-colors duration-300"
