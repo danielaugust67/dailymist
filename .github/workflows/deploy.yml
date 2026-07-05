@@ -47,5 +47,5 @@ jobs:
             docker rm dailymist-app || true
 
             # 4. Jalankan container baru
-            # Container akan berjalan di port 3000 VPS, restart otomatis jika server reboot
-            docker run -d --name dailymist-app --restart unless-stopped -p 3000:3000 dailymist-app:latest
+            # Kita mapping ke port 3005 di VPS agar aman dan tidak bentrok dengan project lama
+            docker run -d --name dailymist-app --restart unless-stopped -p 3005:3000 dailymist-app:latest
